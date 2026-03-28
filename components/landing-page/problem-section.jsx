@@ -3,18 +3,31 @@ import { problemItems } from "./content";
 
 export function ProblemSection() {
   return (
-    <section id="problem" className="relative border-t border-white/10 overflow-hidden grain-overlay">
-      {/* ── Colorful gradient mesh (same dramatic style as CTA) ── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-rose-950/40 via-black to-orange-950/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(244,63,94,0.12)_0%,rgba(251,146,60,0.06)_40%,transparent_70%)] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,rgba(244,63,94,0.14)_0%,rgba(251,146,60,0.06)_30%,transparent_60%)] blur-3xl pointer-events-none animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-rose-500/30 to-transparent" />
+    <section
+      id="problem"
+      className="relative border-t border-white/10 overflow-hidden grain-overlay"
+    >
+      {/* ── Black background ── */}
+      <div className="absolute inset-0 bg-black pointer-events-none" />
 
       {/* Subtle grid SVG */}
-      <svg className="absolute inset-0 h-full w-full pointer-events-none opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="absolute inset-0 h-full w-full pointer-events-none opacity-[0.03]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
-          <pattern id="grid-problem" width="48" height="48" patternUnits="userSpaceOnUse">
-            <path d="M 48 0 L 0 0 0 48" fill="none" stroke="white" strokeWidth="0.6" />
+          <pattern
+            id="grid-problem"
+            width="48"
+            height="48"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 48 0 L 0 0 0 48"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.6"
+            />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid-problem)" />

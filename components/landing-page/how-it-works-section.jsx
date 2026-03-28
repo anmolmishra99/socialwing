@@ -4,11 +4,8 @@ import { howItWorksSteps } from "./content";
 export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="relative border-t border-white/10 overflow-hidden grain-overlay">
-      {/* ── Colorful gradient mesh (same dramatic style as CTA) ── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-black to-teal-950/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(16,185,129,0.12)_0%,rgba(45,212,191,0.06)_40%,transparent_70%)] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.14)_0%,rgba(45,212,191,0.06)_30%,transparent_60%)] blur-3xl pointer-events-none animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+      {/* ── Black background ── */}
+      <div className="absolute inset-0 bg-black pointer-events-none" />
 
       {/* Concentric circle SVG */}
       <svg className="absolute -top-20 -left-20 h-[600px] w-[600px] animate-spin-very-slow pointer-events-none opacity-[0.04]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">

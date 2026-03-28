@@ -10,11 +10,8 @@ export function FaqSection() {
 
   return (
     <section id="faq" className="relative border-t border-white/10 overflow-hidden grain-overlay">
-      {/* ── Colorful gradient mesh (same dramatic style as CTA) ── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-950/40 via-black to-purple-950/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(236,72,153,0.12)_0%,rgba(168,85,247,0.06)_40%,transparent_70%)] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.14)_0%,rgba(168,85,247,0.06)_30%,transparent_60%)] blur-3xl pointer-events-none animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-pink-500/30 to-transparent" />
+      {/* ── Black background ── */}
+      <div className="absolute inset-0 bg-black pointer-events-none" />
 
       {/* Dot pattern */}
       <svg className="absolute inset-0 h-full w-full pointer-events-none opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">

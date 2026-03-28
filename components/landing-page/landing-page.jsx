@@ -14,7 +14,7 @@ import { SiteFooter } from "./site-footer";
 
 export default function LandingPage() {
   return (
-    <main className="relative w-full overflow-x-hidden bg-background selection:bg-white/20 selection:text-white">
+    <main className="relative w-full overflow-x-hidden bg-black selection:bg-white/20 selection:text-white">
       <HeroSection />
       <ProblemSection />
       <ComparisonSection />
