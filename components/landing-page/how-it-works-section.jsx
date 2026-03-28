@@ -1,38 +1,52 @@
-import { howItWorksSteps } from "@/components/landing-page/content";
-import { GlassCard, SectionHeading } from "@/components/landing-page/shared";
+import { SectionHeader } from "./shared";
+import { howItWorksSteps } from "./content";
 
 export function HowItWorksSection() {
   return (
-    <section
-      id="how-it-works"
-      className="scroll-mt-24 border-t border-white/10 bg-background py-24 sm:py-28"
-    >
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 lg:px-8">
-        <SectionHeading
+    <section id="how-it-works" className="relative border-t border-white/10 overflow-hidden grain-overlay">
+      {/* ── Colorful gradient mesh (same dramatic style as CTA) ── */}
+      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-black to-teal-950/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(16,185,129,0.12)_0%,rgba(45,212,191,0.06)_40%,transparent_70%)] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.14)_0%,rgba(45,212,191,0.06)_30%,transparent_60%)] blur-3xl pointer-events-none animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+
+      {/* Concentric circle SVG */}
+      <svg className="absolute -top-20 -left-20 h-[600px] w-[600px] animate-spin-very-slow pointer-events-none opacity-[0.04]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="250" cy="250" r="100" stroke="white" strokeWidth="1" />
+        <circle cx="250" cy="250" r="180" stroke="white" strokeWidth="0.8" />
+        <circle cx="250" cy="250" r="240" stroke="white" strokeWidth="0.6" />
+      </svg>
+
+      {/* Floating dots */}
+      <div className="absolute top-[20%] right-[15%] h-2 w-2 rounded-full bg-emerald-400/35 animate-float-slow" />
+      <div className="absolute bottom-[30%] left-[40%] h-1.5 w-1.5 rounded-full bg-teal-400/30 animate-float-drift" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-28">
+        <SectionHeader
           eyebrow="Dead simple"
           title="From zero to authentic post in 4 minutes."
-          description="The workflow is deliberately boring: connect once, drop in a topic, approve the draft, and let the voice fingerprint sharpen itself over time."
         />
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="mt-20 grid gap-12 lg:grid-cols-2">
           {howItWorksSteps.map((step) => (
-            <GlassCard key={step.step} className="p-7">
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-sm font-semibold text-white/45">{step.step}</p>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
-                  {step.eyebrow}
-                </p>
+            <div key={step.step} className="group relative">
+              <div className="flex items-start gap-8">
+                <div className="relative flex size-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.02] text-xl font-medium text-white transition-colors group-hover:border-emerald-400/30 group-hover:bg-emerald-400/5">
+                  {step.step}
+                </div>
+                <div>
+                  <div className="inline-flex rounded-full border border-white/5 bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#a6a5ac]">
+                    {step.eyebrow}
+                  </div>
+                  <h3 className="mt-4 text-2xl font-medium text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-[#a6a5ac]">
+                    {step.body}
+                  </p>
+                </div>
               </div>
-              <h3
-                className="mt-10 max-w-md text-2xl font-normal leading-tight text-foreground"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {step.title}
-              </h3>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-                {step.body}
-              </p>
-            </GlassCard>
+            </div>
           ))}
         </div>
       </div>

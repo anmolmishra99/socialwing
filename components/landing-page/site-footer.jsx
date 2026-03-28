@@ -1,31 +1,28 @@
-import { footerLinks } from "@/components/landing-page/content";
-
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-background py-10">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div>
-          <p
-            className="text-2xl tracking-tight text-foreground"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            draftfor.me
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            The AI LinkedIn ghostwriter trained on your actual voice.
-          </p>
+    <footer className="relative border-t border-white/10 bg-background overflow-hidden">
+      {/* Subtle gradient fade at top of footer */}
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white/[0.015] to-transparent pointer-events-none" />
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-8">
+        <div
+          className="text-2xl tracking-tight text-white"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          draftfor.me
         </div>
-
-        <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
-          {footerLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-[#a6a5ac]">
+          <a href="#" className="transition-colors hover:text-white">
+            Privacy
+          </a>
+          <a href="#" className="transition-colors hover:text-white">
+            Terms
+          </a>
+          <a href="#" className="transition-colors hover:text-white">
+            Blog
+          </a>
+          <a href="#" className="transition-colors hover:text-white">
+            Contact
+          </a>
         </div>
       </div>
     </footer>

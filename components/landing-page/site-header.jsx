@@ -1,40 +1,42 @@
-import { ArrowRight } from "lucide-react";
-
+import { cn } from "@/lib/utils";
 import { navLinks } from "@/components/landing-page/content";
-import { GlassCard } from "@/components/landing-page/shared";
 
 export function SiteHeader() {
   return (
-    <div className="relative z-20 px-4 pt-6 sm:px-6 lg:px-8">
-      <GlassCard className="mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-3 sm:px-6">
-        <a
-          href="#top"
-          className="text-[1.75rem] tracking-tight text-foreground"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          draftfor.me
-        </a>
+    <nav className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6">
+      <a
+        href="#top"
+        className="text-3xl tracking-tight text-foreground"
+        style={{ fontFamily: "'Instrument Serif', serif" }}
+      >
+        draftfor.me
+      </a>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+      <div className="hidden items-center gap-8 md:flex">
+        {navLinks.map((link, index) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className={cn(
+              "text-sm font-medium transition-colors",
+              index === 0
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
 
-        <a
-          href="#pricing"
-          className="liquid-glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-foreground transition-transform hover:scale-[1.03]"
-        >
-          <span>Start Free</span>
-          <ArrowRight className="size-4" />
-        </a>
-      </GlassCard>
-    </div>
+      <a
+        href="#pricing"
+        className={cn(
+          "liquid-glass appearance-none rounded-full px-6 py-2.5 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
+        )}
+      >
+        Start Free →
+      </a>
+    </nav>
   );
 }

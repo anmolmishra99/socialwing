@@ -1,43 +1,32 @@
 import { cn } from "@/lib/utils";
 
-export function GlassCard({ as: Component = "div", className, children }) {
+export function GlassCard({ className, children }) {
   return (
-    <Component
+    <div
       className={cn(
-        "liquid-glass rounded-[28px] border border-white/10 shadow-[0_24px_90px_rgba(0,0,0,0.28)]",
+        "liquid-glass rounded-[28px] bg-white/[0.03] shadow-[0_18px_40px_rgba(0,0,0,0.5)]",
         className
       )}
     >
       {children}
-    </Component>
+    </div>
   );
 }
 
-export function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  align = "center",
-  className,
-}) {
-  const alignment =
-    align === "left" ? "items-start text-left" : "items-center text-center";
-
+export function SectionHeader({ eyebrow, title, description, className }) {
   return (
-    <div className={cn("flex max-w-3xl flex-col gap-4", alignment, className)}>
-      {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-white/55">
-          {eyebrow}
-        </p>
-      ) : null}
+    <div className={cn("mx-auto max-w-3xl text-center", className)}>
+      <p className="text-sm font-medium tracking-[0.12em] text-[#a6a5ac] uppercase">
+        {eyebrow}
+      </p>
       <h2
-        className="text-3xl font-normal leading-[1.02] tracking-[-0.04em] text-foreground sm:text-5xl"
-        style={{ fontFamily: "var(--font-display)" }}
+        className="mt-4 text-4xl font-normal leading-tight text-white sm:text-5xl md:text-6xl"
+        style={{ fontFamily: "'Instrument Serif', serif" }}
       >
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mt-5 text-base leading-relaxed text-[#a6a5ac] sm:text-lg">
           {description}
         </p>
       ) : null}

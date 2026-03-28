@@ -1,137 +1,89 @@
 "use client";
-
-import { useState } from "react";
-import { Check } from "lucide-react";
-
-import { pricingPlans } from "@/components/landing-page/content";
-import { GlassCard, SectionHeading } from "@/components/landing-page/shared";
+import React from "react";
 import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
+import { GlassCard, SectionHeader } from "./shared";
+import { pricingPlans } from "./content";
 
 export function PricingSection() {
-  const [billing, setBilling] = useState("annual");
+  const [billingCycle, setBillingCycle] = React.useState("annual");
 
   return (
-    <section
-      id="pricing"
-      className="scroll-mt-24 border-t border-white/10 bg-background py-24 sm:py-28"
-    >
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Simple pricing"
-          title="Less than one bad hire's first day."
-          description="One consistent LinkedIn presence can generate more pipeline than an entire outbound team. This is the cheapest hire you'll ever make."
+    <section id="pricing" className="relative border-t border-white/10 overflow-hidden">
+      {/* ── Colorful gradient mesh (same dramatic style as CTA) ── */}
+      <div className="absolute inset-0 bg-gradient-to-b from-sky-950/40 via-black to-blue-950/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(14,165,233,0.12)_0%,rgba(59,130,246,0.06)_40%,transparent_70%)] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] rounded-full bg-[radial-gradient(circle,rgba(14,165,233,0.14)_0%,rgba(59,130,246,0.06)_30%,transparent_60%)] blur-3xl pointer-events-none animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-sky-500/30 to-transparent" />
+
+      {/* Diamond pattern */}
+      <svg className="absolute top-0 right-0 h-[600px] w-[600px] pointer-events-none opacity-[0.02]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 50 0 L 100 50 L 50 100 L 0 50 Z" stroke="white" strokeWidth="0.5" />
+        <path d="M 50 20 L 80 50 L 50 80 L 20 50 Z" stroke="white" strokeWidth="0.3" />
+      </svg>
+
+      {/* Floating dots */}
+      <div className="absolute top-[20%] left-[15%] h-1.5 w-1.5 rounded-full bg-sky-400/35 animate-float-slow" />
+      <div className="absolute bottom-[25%] right-[20%] h-2 w-2 rounded-full bg-blue-400/30 animate-float-drift" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-28">
+        <SectionHeader
+          eyebrow="Pricing"
+          title="Built to pay for itself in one post."
         />
 
-        <div className="mx-auto flex w-full max-w-md items-center justify-center rounded-full border border-white/10 bg-white/[0.03] p-1">
+        <div className="mt-12 flex items-center justify-center gap-4">
+          <span className={cn("text-sm transition-colors", billingCycle === "monthly" ? "text-white" : "text-[#a6a5ac]")}>Monthly</span>
           <button
-            type="button"
-            onClick={() => setBilling("monthly")}
-            className={cn(
-              "flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-              billing === "monthly"
-                ? "bg-white text-slate-950"
-                : "text-muted-foreground hover:text-foreground"
-            )}
+            onClick={() => setBillingCycle(billingCycle === "monthly" ? "annual" : "monthly")}
+            className="relative h-6 w-11 rounded-full bg-white/10 transition-colors hover:bg-white/15"
           >
-            Monthly
+            <div className={cn("absolute top-1 h-4 w-4 rounded-full bg-white transition-all", billingCycle === "monthly" ? "left-1" : "left-6")} />
           </button>
-          <button
-            type="button"
-            onClick={() => setBilling("annual")}
-            className={cn(
-              "flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-              billing === "annual"
-                ? "bg-white text-slate-950"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            Annual
-          </button>
-          <span className="rounded-full bg-emerald-400/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
-            Save 40%
-          </span>
+          <span className={cn("text-sm transition-colors", billingCycle === "annual" ? "text-white" : "text-[#a6a5ac]")}>Annual <span className="text-blue-400 ml-1">(Save 40%)</span></span>
         </div>
 
-        <div className="grid gap-6 xl:grid-cols-3">
-          {pricingPlans.map((plan) => {
-            const isPro = plan.name === "Pro";
-            const price = isPro
-              ? billing === "annual"
-                ? plan.annualPrice
-                : plan.monthlyPrice
-              : plan.price;
-            const subtext = isPro
-              ? billing === "annual"
-                ? plan.annualSubtext
-                : plan.monthlySubtext
-              : plan.subtext;
-
-            return (
-              <GlassCard
-                key={plan.name}
-                className={cn(
-                  "flex h-full flex-col p-7",
-                  plan.featured ? "border-white/20 shadow-[0_28px_100px_rgba(10,24,48,0.45)]" : ""
-                )}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3
-                      className="text-2xl font-normal text-foreground"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {plan.name}
-                    </h3>
-                    <p className="mt-3 text-4xl font-semibold tracking-tight text-foreground">
-                      {price}
-                    </p>
-                    <p className="mt-2 text-sm text-muted-foreground">{subtext}</p>
-                  </div>
-
-                  {plan.featured ? (
-                    <div className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
-                      Most popular
-                    </div>
-                  ) : null}
+        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+          {pricingPlans.map((plan) => (
+            <GlassCard
+              key={plan.name}
+              className={cn(
+                "relative p-8 md:p-10",
+                plan.featured && "bg-blue-500/[0.04] ring-1 ring-blue-400/30"
+              )}
+            >
+              {plan.featured && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-blue-500 px-4 py-1 text-xs font-bold uppercase tracking-widest text-white">
+                  Most Popular
                 </div>
+              )}
+              <h3 className="text-xl font-medium text-white">{plan.name}</h3>
+              <div className="mt-6 flex items-baseline gap-1">
+                <span className="text-4xl font-normal text-white" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                  {billingCycle === "annual" ? (plan.annualPrice || plan.price) : (plan.monthlyPrice || plan.price)}
+                </span>
+                <span className="text-sm text-[#a6a5ac]">{plan.subtext}</span>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-[#a6a5ac]">{plan.description}</p>
+              
+              <ul className="mt-8 space-y-4">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm text-[#a6a5ac]">
+                    <Check className="size-4 shrink-0 mt-0.5 text-blue-400/70" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
 
-                <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-                  {plan.description}
-                </p>
-
-                <div className="mt-8 space-y-3">
-                  {plan.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-3">
-                      <div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-emerald-400/12 text-emerald-200">
-                        <Check className="size-3.5" />
-                      </div>
-                      <p className="text-sm leading-relaxed text-white/82">
-                        {feature}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <a
-                  href="#top"
-                  className={cn(
-                    "mt-8 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-transform hover:scale-[1.02]",
-                    plan.featured
-                      ? "bg-white text-slate-950"
-                      : "liquid-glass text-foreground"
-                  )}
-                >
-                  {plan.cta}
-                </a>
-              </GlassCard>
-            );
-          })}
+              <button className={cn(
+                "mt-10 w-full rounded-full py-4 text-sm font-semibold transition-transform hover:scale-[1.02]",
+                plan.featured ? "bg-white text-black" : "bg-white/5 text-white hover:bg-white/10"
+              )}>
+                {plan.cta}
+              </button>
+            </GlassCard>
+          ))}
         </div>
-
-        <p className="text-center text-sm text-muted-foreground">
-          No credit card required for free trial · Cancel anytime · 14-day money
-          back guarantee
-        </p>
       </div>
     </section>
   );
