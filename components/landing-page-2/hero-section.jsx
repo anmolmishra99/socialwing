@@ -3,154 +3,268 @@ export const HeroSection = () => (
     <style jsx>{`
       .hero {
         min-height: 100vh;
-        display: flex; flex-direction: column;
-        justify-content: center; align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         padding: 120px 24px 80px;
         position: relative;
         overflow: hidden;
       }
       .hero::before {
-        content: '';
-        position: absolute; inset: 0;
+        content: "";
+        position: absolute;
+        inset: 0;
         background:
-          radial-gradient(ellipse 60% 50% at 50% 0%, rgba(10,102,194,0.08) 0%, transparent 70%),
-          radial-gradient(ellipse 40% 30% at 80% 80%, rgba(232,82,26,0.06) 0%, transparent 60%);
+          radial-gradient(
+            ellipse 60% 50% at 50% 0%,
+            rgba(10, 102, 194, 0.08) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 30% at 80% 80%,
+            rgba(232, 82, 26, 0.06) 0%,
+            transparent 60%
+          );
         pointer-events: none;
       }
       .hero-badge {
-        display: inline-flex; align-items: center; gap: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: var(--blue-light);
-        border: 1px solid rgba(10,102,194,0.2);
+        border: 1px solid rgba(10, 102, 194, 0.2);
         color: var(--blue);
-        font-size: 0.8rem; font-weight: 600;
-        padding: 6px 16px; border-radius: 100px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 100px;
         margin-bottom: 32px;
-        letter-spacing: 0.04em; text-transform: uppercase;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
       .hero-badge::before {
-        content: '';
-        width: 6px; height: 6px;
-        background: var(--blue); border-radius: 50%;
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--blue);
+        border-radius: 50%;
         animation: pulse 1.5s ease infinite;
       }
       @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(0.7); }
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.7);
+        }
       }
       h1 {
         font-family: var(--font-instrument);
         font-size: clamp(3rem, 7vw, 6rem);
-        line-height: 1.05; letter-spacing: -0.03em;
-        max-width: 900px; margin-bottom: 12px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        max-width: 900px;
+        margin-bottom: 12px;
         animation: fadeUp 0.6s 0.1s ease both;
       }
-      h1 em { font-style: italic; color: var(--accent); }
+      h1 em {
+        font-style: italic;
+        color: var(--accent);
+      }
       .hero-sub {
         font-family: var(--font-instrument);
         font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-        color: var(--muted); font-style: italic;
+        color: var(--muted);
+        font-style: italic;
         margin-bottom: 28px;
         animation: fadeUp 0.6s 0.15s ease both;
       }
       .hero-desc {
-        font-size: 1.05rem; color: var(--muted);
-        max-width: 560px; line-height: 1.7;
+        font-size: 1.05rem;
+        color: var(--muted);
+        max-width: 560px;
+        line-height: 1.7;
         margin-bottom: 44px;
         animation: fadeUp 0.6s 0.2s ease both;
       }
-      .hero-desc strong { color: var(--ink); font-weight: 500; }
+      .hero-desc strong {
+        color: var(--ink);
+        font-weight: 500;
+      }
       .hero-actions {
-        display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
         margin-bottom: 60px;
         animation: fadeUp 0.6s 0.25s ease both;
       }
       .btn-primary {
-        background: var(--ink); color: var(--paper);
-        border: none; cursor: pointer;
-        padding: 16px 36px; border-radius: 8px;
+        background: var(--ink);
+        color: var(--paper);
+        border: none;
+        cursor: pointer;
+        padding: 16px 36px;
+        border-radius: 8px;
         font-family: var(--font-dm-sans);
-        font-size: 1rem; font-weight: 600;
+        font-size: 1rem;
+        font-weight: 600;
         letter-spacing: -0.01em;
         transition: all 0.25s;
         text-decoration: none;
-        display: inline-flex; align-items: center; gap: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
       .btn-primary:hover {
-        background: var(--accent); transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(232,82,26,0.25);
+        background: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(232, 82, 26, 0.25);
       }
       .btn-secondary {
-        background: transparent; color: var(--ink);
-        border: 1.5px solid var(--border); cursor: pointer;
-        padding: 16px 28px; border-radius: 8px;
+        background: transparent;
+        color: var(--ink);
+        border: 1.5px solid var(--border);
+        cursor: pointer;
+        padding: 16px 28px;
+        border-radius: 8px;
         font-family: var(--font-dm-sans);
-        font-size: 1rem; font-weight: 500;
+        font-size: 1rem;
+        font-weight: 500;
         transition: all 0.2s;
         text-decoration: none;
       }
-      .btn-secondary:hover { border-color: var(--ink); background: rgba(10,10,10,0.03); }
-      .hero-social-proof {
-        display: flex; align-items: center; gap: 16px;
-        animation: fadeUp 0.6s 0.3s ease both;
-        flex-wrap: wrap; justify-content: center;
+      .btn-secondary:hover {
+        border-color: var(--ink);
+        background: rgba(10, 10, 10, 0.03);
       }
-      .avatars { display: flex; }
-      .avatars span {
-        width: 32px; height: 32px; border-radius: 50%;
+      .hero-social-proof {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        animation: fadeUp 0.6s 0.3s ease both;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .avatars {
+        display: flex;
+      }
+      .avatars img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
         border: 2px solid var(--cream);
         margin-left: -8px;
+        object-fit: cover;
         background: var(--border);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 0.65rem; font-weight: 700; color: var(--muted);
       }
-      .proof-text { font-size: 0.875rem; color: var(--muted); }
-      .proof-text strong { color: var(--ink); font-weight: 600; }
+      .proof-text {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .proof-text strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
 
       .linkedin-mock {
-        background: #f3f2ef; border-radius: 20px;
-        padding: 40px; max-width: 720px; margin: 60px auto 0;
+        background: #f3f2ef;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 720px;
+        margin: 60px auto 0;
         border: 1px solid #e0ddd8;
-        box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
       }
       .li-card {
-        background: white; border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         overflow: hidden;
       }
       .li-header {
         padding: 16px 20px;
-        display: flex; align-items: flex-start; gap: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
         border-bottom: 1px solid #e0ddd8;
       }
       .li-av {
-        width: 48px; height: 48px; border-radius: 50%;
-        background: #0a66c2; display: flex;
-        align-items: center; justify-content: center;
-        color: white; font-weight: 700; font-size: 1.1rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0a66c2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
         flex-shrink: 0;
       }
-      .li-name { font-weight: 600; font-size: 0.9rem; color: #1a1a1a; }
-      .li-handle { font-size: 0.78rem; color: #666; }
-      .li-body { padding: 20px; font-size: 0.9rem; line-height: 1.7; color: #1a1a1a; text-align: left; }
-      .li-body p { margin-bottom: 12px; }
-      .li-body .hashtag { color: #0a66c2; }
+      .li-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #1a1a1a;
+      }
+      .li-handle {
+        font-size: 0.78rem;
+        color: #666;
+      }
+      .li-body {
+        padding: 20px;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: #1a1a1a;
+        text-align: left;
+      }
+      .li-body p {
+        margin-bottom: 12px;
+      }
+      .li-body .hashtag {
+        color: #0a66c2;
+      }
       .li-footer {
         padding: 12px 20px;
         border-top: 1px solid #e0ddd8;
-        display: flex; gap: 24px;
-        font-size: 0.78rem; color: #666;
+        display: flex;
+        gap: 24px;
+        font-size: 0.78rem;
+        color: #666;
       }
-      .li-footer span { cursor: pointer; display: flex; align-items: center; gap: 6px; }
+      .li-footer span {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
       .style-indicator {
-        display: inline-flex; align-items: center; gap: 8px;
-        background: var(--blue-light); border: 1px solid rgba(10,102,194,0.2);
-        color: var(--blue); padding: 6px 14px; border-radius: 100px;
-        font-size: 0.78rem; font-weight: 600; margin-bottom: 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--blue-light);
+        border: 1px solid rgba(10, 102, 194, 0.2);
+        color: var(--blue);
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-bottom: 24px;
       }
       @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     `}</style>
 
@@ -160,15 +274,16 @@ export const HeroSection = () => (
       <br />
       sound <em>exactly</em> like you.
     </h1>
-    <p className="hero-sub">
+    <p className="hero-sub pb-8 pt-5">
       Not like AI. Not like everyone else. Like <em>you</em>.
     </p>
 
-    <p className="hero-desc">
-      ChatGPT writes posts that sound like ChatGPT.
+    {/* <p className="hero-desc">
+      Not like AI. Not like everyone else. <strong>Like you.</strong>
       <br />
-      <strong>draftfor.me</strong> reads your past posts, learns your rhythm, your quirks, your voice — and drafts content that your followers will never suspect was AI-generated.
-    </p>
+      draftfor.me learns how you think, write, and express — then turns it into
+      LinkedIn posts that sound unmistakably yours.
+    </p> */}
 
     <div className="hero-actions">
       <a href="#" className="btn-primary">
@@ -177,33 +292,65 @@ export const HeroSection = () => (
         </svg>
         Analyze my LinkedIn voice
       </a>
-      <a href="#how-it-works" className="btn-secondary">See how it works</a>
+      <a href="#how-it-works" className="btn-secondary">
+        See how it works
+      </a>
     </div>
 
     <div className="hero-social-proof">
       <div className="avatars">
-        <span>AK</span><span>SR</span><span>MV</span><span>JP</span>
+        <img src="/assets/user/1.png" alt="User" />
+        <img src="/assets/user/2.png" alt="User" />
+        <img src="/assets/user/3.png" alt="User" />
+        <img src="/assets/user/4.png" alt="User" />
       </div>
-      <p className="proof-text"><strong>1,400+ founders & executives</strong> post daily with their authentic voice</p>
+      <p className="proof-text">
+        <strong>100+ founders & executives</strong> post daily with their
+        authentic voice
+      </p>
     </div>
 
     <div className="linkedin-mock reveal">
-      <div className="style-indicator">Voice fingerprint detected — 94% match</div>
+      <div className="style-indicator">
+        Voice fingerprint detected — 94% match
+      </div>
       <div className="li-card">
         <div className="li-header">
           <div className="li-av">SK</div>
           <div>
             <div className="li-name">Siddharth Kumar · CEO, SaaSify</div>
-            <div className="li-handle">Founder | B2B SaaS | 12.4K followers</div>
+            <div className="li-handle">
+              Founder | B2B SaaS | 12.4K followers
+            </div>
           </div>
         </div>
         <div className="li-body">
-          <p>I lost a $180K deal last year because I stopped posting on LinkedIn for 3 months.</p>
-          <p>Not kidding. The prospect literally said: "I wasn't sure if you were still operating."</p>
-          <p>Visibility IS credibility.<br/>Silence IS risk.<br/>Consistency IS a moat.</p>
-          <p>Now I post every day. Takes me 4 minutes with <strong>draftfor.me</strong> — and it actually sounds like me, not a robot.</p>
+          <p>
+            I lost a $180K deal last year because I stopped posting on LinkedIn
+            for 3 months.
+          </p>
+          <p>
+            Not kidding. The prospect literally said: "I wasn't sure if you were
+            still operating."
+          </p>
+          <p>
+            Visibility IS credibility.
+            <br />
+            Silence IS risk.
+            <br />
+            Consistency IS a moat.
+          </p>
+          <p>
+            Now I post every day. Takes me 4 minutes with{" "}
+            <strong>draftfor.me</strong> — and it actually sounds like me, not a
+            robot.
+          </p>
           <p>Your audience can tell the difference. So can your pipeline.</p>
-          <p><span className="hashtag">#founders</span> <span className="hashtag">#linkedin</span> <span className="hashtag">#b2bsaas</span></p>
+          <p>
+            <span className="hashtag">#founders</span>{" "}
+            <span className="hashtag">#linkedin</span>{" "}
+            <span className="hashtag">#b2bsaas</span>
+          </p>
         </div>
         <div className="li-footer">
           <span>👍 248 reactions</span>

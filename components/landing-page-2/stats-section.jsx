@@ -25,7 +25,7 @@ export const StatsSection = () => (
     `}</style>
     <div className="stats-inner">
       <div>
-        <div className="stat-num">1,400+</div>
+        <div className="stat-num">100+</div>
         <div className="stat-label">Active users</div>
       </div>
       <div>

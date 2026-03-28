@@ -60,11 +60,17 @@ export default function LandingPage2() {
   }, []);
 
   return (
-    <div className={`${instrumentSerif.variable} ${syne.variable} ${dmSans.variable} font-sans`}>
-      <SharedStyles instrumentSerif={instrumentSerif} syne={syne} dmSans={dmSans} />
-      
+    <div
+      className={`${instrumentSerif.variable} ${syne.variable} ${dmSans.variable} font-sans`}
+    >
+      <SharedStyles
+        instrumentSerif={instrumentSerif}
+        syne={syne}
+        dmSans={dmSans}
+      />
+
       <NavSection />
-      
+
       <main>
         <HeroSection />
         <ProblemSection />
