@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { AuthContextProvider } from "@/app/context/AuthContext";
+import StyledJsxRegistry from "@/components/landing-page-2/registry";
 
 export const metadata = {
   metadataBase: new URL("https://www.esulabh.in"),
@@ -8,7 +9,8 @@ export const metadata = {
     default: "eSulabh | Blockchain-Powered Land Acquisition Management System",
     template: "%s | eSulabh",
   },
-  description: "Transform government land acquisition with eSulabh - a blockchain-based platform ensuring transparent, immutable, and efficient management of property records, compensation tracking, and compliance for infrastructure projects.",
+  description:
+    "Transform government land acquisition with eSulabh - a blockchain-based platform ensuring transparent, immutable, and efficient management of property records, compensation tracking, and compliance for infrastructure projects.",
   keywords: [
     "land acquisition",
     "blockchain land records",
@@ -26,7 +28,8 @@ export const metadata = {
   },
   openGraph: {
     title: "eSulabh | Blockchain-Powered Land Acquisition Management",
-    description: "Revolutionize government land acquisition with blockchain technology. Track compensation, manage records, and ensure transparent, immutable documentation for highways, railways, and infrastructure projects.",
+    description:
+      "Revolutionize government land acquisition with blockchain technology. Track compensation, manage records, and ensure transparent, immutable documentation for highways, railways, and infrastructure projects.",
     url: "https://www.esulabh.in",
     siteName: "eSulabh",
     locale: "en_IN",
@@ -43,7 +46,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "eSulabh | Blockchain Land Acquisition Management",
-    description: "Transform government land acquisition with blockchain-powered transparency, immutable records, and efficient compensation tracking.",
+    description:
+      "Transform government land acquisition with blockchain-powered transparency, immutable records, and efficient compensation tracking.",
     creator: "@anmol_biz",
     site: "@anmol_biz",
     images: ["/opengraph-image.png"],
@@ -67,7 +71,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "eSulabh",
-    description: "Blockchain-powered land acquisition management system for government infrastructure projects.",
+    description:
+      "Blockchain-powered land acquisition management system for government infrastructure projects.",
     applicationCategory: "GovernmentApplication",
     operatingSystem: "Web Browser",
     offers: {
@@ -100,7 +105,9 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthContextProvider>
+          <StyledJsxRegistry>{children} </StyledJsxRegistry>
+        </AuthContextProvider>
         <Toaster />
       </body>
     </html>
