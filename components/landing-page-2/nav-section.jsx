@@ -62,8 +62,8 @@ export const NavSection = () => (
         height: 5px;
         background: var(--blue, #0a66c2);
         border-radius: 50%;
-        margin: 0 1px 6px;
-        flex-shrink: 0;
+        margin: 0 2px;
+        transform: translateY(4px); /* pushes it downward cleanly */
       }
 
       /* ── Nav links ── */

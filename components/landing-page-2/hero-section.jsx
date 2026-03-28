@@ -106,7 +106,7 @@ export const HeroSection = () => (
         background: var(--blue-light, rgba(10, 102, 194, 0.08));
         border: 1px solid rgba(10, 102, 194, 0.22);
         color: var(--blue, #0a66c2);
-        font-size: 0.78rem;
+        font-size: 0.67rem;
         font-weight: 700;
         padding: 6px 18px;
         border-radius: 100px;

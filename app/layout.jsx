@@ -4,54 +4,65 @@ import { AuthContextProvider } from "@/app/context/AuthContext";
 import StyledJsxRegistry from "@/components/landing-page-2/registry";
 
 export const metadata = {
-  metadataBase: new URL("https://www.esulabh.in"),
+  metadataBase: new URL("https://www.draftfor.me"),
+
   title: {
-    default: "eSulabh | Blockchain-Powered Land Acquisition Management System",
-    template: "%s | eSulabh",
+    default: "LinkedIn Post Generator That Sounds Like You | draftfor.me",
+    template: "%s | draftfor.me",
   },
+
   description:
-    "Transform government land acquisition with eSulabh - a blockchain-based platform ensuring transparent, immutable, and efficient management of property records, compensation tracking, and compliance for infrastructure projects.",
+    "Stop posting content that sounds like AI. draftfor.me learns your voice from past posts — so every LinkedIn update is authentically you. Try it free →",
+
   keywords: [
-    "land acquisition",
-    "blockchain land records",
-    "government land management",
-    "property compensation tracking",
-    "transparent land acquisition",
-    "digital land records",
-    "infrastructure project management",
+    "LinkedIn post generator that sounds like me",
+    "AI LinkedIn ghostwriter",
+    "LinkedIn post in my writing style",
+    "AI LinkedIn post generator",
+    "LinkedIn personal brand automation",
+    "LinkedIn content for founders",
+    "LinkedIn ghostwriting tool for executives",
+    "consistent LinkedIn presence without writing",
+    "LinkedIn post generator for sales teams",
+    "AI content that sounds human",
   ],
-  authors: [{ name: "eSulabh Team" }],
-  creator: "eSulabh",
-  publisher: "eSulabh",
+
+  authors: [{ name: "draftfor.me" }],
+  creator: "draftfor.me",
+  publisher: "draftfor.me",
+
   alternates: {
-    canonical: "https://www.esulabh.in",
+    canonical: "https://www.draftfor.me",
   },
+
   openGraph: {
-    title: "eSulabh | Blockchain-Powered Land Acquisition Management",
+    title: "LinkedIn Post Generator That Sounds Like You | draftfor.me",
     description:
-      "Revolutionize government land acquisition with blockchain technology. Track compensation, manage records, and ensure transparent, immutable documentation for highways, railways, and infrastructure projects.",
-    url: "https://www.esulabh.in",
-    siteName: "eSulabh",
-    locale: "en_IN",
+      "draftfor.me reads your old posts, learns how you write, then drafts LinkedIn content in your voice — not a generic AI voice. Used by founders, executives, and sales teams.",
+    url: "https://www.draftfor.me",
+    siteName: "draftfor.me",
+    locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/opengraph-image.png", // Relative path works better
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "eSulabh - Blockchain Land Acquisition Platform",
+        alt: "draftfor.me — LinkedIn post generator that sounds like you wrote it",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "eSulabh | Blockchain Land Acquisition Management",
+    title: "LinkedIn Post Generator That Sounds Like You",
     description:
-      "Transform government land acquisition with blockchain-powered transparency, immutable records, and efficient compensation tracking.",
+      "Stop posting content that sounds like AI. draftfor.me learns your voice from past posts — so every LinkedIn update is authentically you. Try it free →",
     creator: "@anmol_biz",
     site: "@anmol_biz",
     images: ["/opengraph-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -66,21 +77,35 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // JSON-LD structured data
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "eSulabh",
+    name: "draftfor.me",
+    alternateName: "Draft For Me",
     description:
-      "Blockchain-powered land acquisition management system for government infrastructure projects.",
-    applicationCategory: "GovernmentApplication",
+      "AI LinkedIn post generator that analyzes your past posts to learn your writing style, vocabulary, and tone — then drafts content that sounds like you, not like AI.",
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "Content Writing",
     operatingSystem: "Web Browser",
+    url: "https://www.draftfor.me",
     offers: {
       "@type": "Offer",
       price: "0",
-      priceCurrency: "INR",
+      priceCurrency: "USD",
+      description: "Free to try — no credit card required",
     },
-    url: "https://www.esulabh.in",
+    featureList: [
+      "Learns your unique writing style from past LinkedIn posts",
+      "Generates LinkedIn posts that sound authentically human",
+      "Captures your vocabulary, rhythm, humor, and quirks",
+      "Built for founders, executives, sales teams, and agencies",
+      "Daily LinkedIn content without hours of writing",
+    ],
+    audience: {
+      "@type": "Audience",
+      audienceType:
+        "Founders, Executives, Sales Teams, Marketing Agencies, Personal Brand Builders",
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
@@ -89,13 +114,54 @@ export default function RootLayout({ children }) {
     },
     publisher: {
       "@type": "Organization",
-      name: "eSulabh",
-      url: "https://www.esulabh.in",
+      name: "draftfor.me",
+      url: "https://www.draftfor.me",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.esulabh.in/logo.png",
+        url: "https://www.draftfor.me/logo.png",
       },
+      sameAs: ["https://www.linkedin.com/company/draftforme"],
     },
+  };
+
+  // FAQ schema targeting informational keywords
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How does draftfor.me learn my LinkedIn writing style?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "draftfor.me analyzes your previous LinkedIn posts to identify your vocabulary, sentence rhythm, tone, humor, and writing quirks. It uses this data to generate new posts that sound like you wrote them — not a generic AI.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is draftfor.me different from ChatGPT for LinkedIn posts?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. ChatGPT generates generic content with no knowledge of how you write. draftfor.me specifically learns your personal writing style from your past posts, so the output sounds authentically like you rather than obviously AI-written.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Who is draftfor.me for?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "draftfor.me is built for founders, executives, sales teams, and agencies who need to maintain a consistent daily LinkedIn presence without spending hours writing. It's especially useful for anyone whose personal brand matters but whose calendar doesn't have room for content creation.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can draftfor.me write LinkedIn posts in my style?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "That's exactly what it does. Feed it your old LinkedIn posts and it learns how you phrase things, what topics you focus on, and how long your posts tend to run. New drafts match your style rather than sounding like a template.",
+        },
+      },
+    ],
   };
 
   return (
@@ -105,8 +171,12 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
         <AuthContextProvider>
-          <StyledJsxRegistry>{children} </StyledJsxRegistry>
+          <StyledJsxRegistry>{children}</StyledJsxRegistry>
         </AuthContextProvider>
         <Toaster />
       </body>
