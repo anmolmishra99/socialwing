@@ -1,0 +1,19 @@
+# Visionari.me robots.txt
+User-agent: *
+Allow: /
+Allow: /sitemap.xml
+Allow: /robots.txt
+
+
+
+# Private areas
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*?*
+
+# Crawl optimization
+Crawl-delay: 1
+
+Host: https://matrachaya.co.in
+Sitemap: https://matrachaya.co.in/sitemap.xml
