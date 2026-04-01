@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { UserAuth } from "@/app/context/AuthContext";
 import { useAccountsStore } from "@/store/accountsStore";
@@ -8,7 +8,7 @@ import Dashboard from "@/components/dashboard/dashboard";
 import LoadingScreen from "@/components/dashboard/Shared/LoadingScreen";
 import toast from "react-hot-toast";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const { user } = UserAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -92,4 +92,12 @@ export default function DashboardPage() {
   }
 
   return <Dashboard />;
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <DashboardContent />
+    </Suspense>
+  );
 }
