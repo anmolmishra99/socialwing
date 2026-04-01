@@ -56,9 +56,14 @@ function DashboardContent() {
     if (oauthSuccess === "true" && accountDataEncoded) {
       oauthHandled.current = true;
       try {
-        const accountData = JSON.parse(
-          Buffer.from(accountDataEncoded, "base64url").toString()
-        );
+        // Convert base64url to standard base64
+        let base64 = accountDataEncoded.replace(/-/g, "+").replace(/_/g, "/");
+        while (base64.length % 4) {
+          base64 += "=";
+        }
+        // Decode base64 to utf-8 using native atob & decodeURIComponent
+        const jsonString = decodeURIComponent(escape(atob(base64)));
+        const accountData = JSON.parse(jsonString);
 
         // Save to Firestore via the Zustand store
         addAccount(user.uid, accountData)
