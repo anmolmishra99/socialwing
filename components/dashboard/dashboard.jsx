@@ -197,9 +197,9 @@ function NavButton({ item, isActive, onClick }) {
   );
 }
 
-export default function Dashboard() {
+export default function Dashboard({ initialTab = "Dashboard" }) {
   const { user, logOut } = UserAuth();
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const renderPage = () => {
     switch (activeTab) {

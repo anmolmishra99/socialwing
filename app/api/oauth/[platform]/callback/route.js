@@ -10,7 +10,7 @@ export async function GET(request, { params }) {
   const error = searchParams.get("error");
 
   const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000").replace(/\/+$/, "");
-  const dashboardUrl = `${baseUrl}/dashboard`;
+  const dashboardUrl = `${baseUrl}/dashboard/accounts`;
 
   // Handle user denial
   if (error) {
