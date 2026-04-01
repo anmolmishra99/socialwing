@@ -10,6 +10,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { createUserDocument } from "@/lib/firestore/users";
 
 const AuthContext = createContext();
 
@@ -22,8 +23,11 @@ export const AuthContextProvider = ({ children }) => {
  const googleSignIn = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    // Create/update user doc in Firestore
+    if (result.user) {
+      await createUserDocument(result.user);
+    }
   } catch (error) {
     console.error("Error signing in with Google:", error);
     throw error;
@@ -31,10 +35,14 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 
-  const createAccountWithemailandpass = (email, pass) => {
+  const createAccountWithemailandpass = async (email, pass) => {
     try {
       setLoading(true);
-      createUserWithEmailAndPassword(auth, email, pass);
+      const result = await createUserWithEmailAndPassword(auth, email, pass);
+      // Create user doc in Firestore on signup
+      if (result.user) {
+        await createUserDocument(result.user);
+      }
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -42,10 +50,14 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const signInwithEmailAndPassword = (email, password) => {
+  const signInwithEmailAndPassword = async (email, password) => {
     try {
       setLoading(true);
-      signInWithEmailAndPassword(auth, email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      // Update last login in Firestore
+      if (result.user) {
+        await createUserDocument(result.user);
+      }
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -62,12 +74,18 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser({
           ...currentUser,
           language: language
         });
+        // Ensure user document exists in Firestore on every auth state restoration
+        try {
+          await createUserDocument(currentUser);
+        } catch (err) {
+          console.error("Failed to sync user document:", err);
+        }
       } else {
         setUser(null);
       }

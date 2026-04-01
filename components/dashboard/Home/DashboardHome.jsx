@@ -1,6 +1,11 @@
 "use client";
 
+import { useAccountsStore } from "@/store/accountsStore";
+
 export default function DashboardHome({ user, onNavigate }) {
+  const { accounts } = useAccountsStore();
+  const connectedCount = accounts.length;
+
   const stats = [
     {
       label: "Posts This Week",
@@ -54,8 +59,8 @@ export default function DashboardHome({ user, onNavigate }) {
     },
     {
       label: "Connected",
-      value: "0",
-      delta: "Add account →",
+      value: String(connectedCount),
+      delta: connectedCount > 0 ? `${connectedCount} account${connectedCount > 1 ? "s" : ""} active` : "Add account →",
       color: "#06D6A0",
       bg: "#E6FBF5",
       icon: (
@@ -227,7 +232,7 @@ export default function DashboardHome({ user, onNavigate }) {
         </p>
       </div>
 
-      {/* ── Stats Grid (redesigned) ── */}
+      {/* ── Stats Grid ── */}
       <div
         style={{
           display: "grid",
@@ -392,6 +397,113 @@ export default function DashboardHome({ user, onNavigate }) {
           ))}
         </div>
       </div>
+
+      {/* Connected Accounts Summary */}
+      {connectedCount > 0 && (
+        <div style={{ marginBottom: "40px" }}>
+          <h3
+            style={{
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              color: "#888",
+              marginBottom: "16px",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Connected Accounts
+          </h3>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "12px",
+            }}
+          >
+            {accounts.map((account) => (
+              <div
+                key={account.platform || account.id}
+                style={{
+                  background: "#fff",
+                  border: "2px solid #000",
+                  borderRadius: "8px",
+                  boxShadow: "3px 3px 0 #000",
+                  padding: "14px 20px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  minWidth: "200px",
+                }}
+              >
+                {account.avatarUrl ? (
+                  <img
+                    src={account.avatarUrl}
+                    alt={account.handle}
+                    style={{
+                      width: "28px",
+                      height: "28px",
+                      borderRadius: "50%",
+                      border: "1.5px solid #000",
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "28px",
+                      height: "28px",
+                      borderRadius: "50%",
+                      background: "#5945FE",
+                      border: "1.5px solid #000",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#fff",
+                      fontWeight: 700,
+                      fontSize: "0.7rem",
+                    }}
+                  >
+                    {(account.handle || account.platform || "?")[0].toUpperCase()}
+                  </div>
+                )}
+                <div>
+                  <p
+                    style={{
+                      fontWeight: 700,
+                      fontSize: "0.85rem",
+                      color: "#000",
+                      margin: 0,
+                    }}
+                  >
+                    {account.handle || account.displayName}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.72rem",
+                      color: "#888",
+                      fontWeight: 500,
+                      margin: 0,
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {account.platform}
+                  </p>
+                </div>
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "#06D6A0",
+                    border: "1px solid #000",
+                    flexShrink: 0,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Recent Activity */}
       <div>

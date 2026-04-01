@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { UserAuth } from "@/app/context/AuthContext";
-import {
-  getConnectedAccounts,
-  deleteConnectedAccount,
-} from "@/lib/firestore/accounts";
+import { useAccountsStore } from "@/store/accountsStore";
 import toast from "react-hot-toast";
 
 const PLATFORMS = [
@@ -172,25 +169,14 @@ function formatExpiry(expiresAt) {
 
 export default function AccountsPage() {
   const { user } = UserAuth();
-  const [accounts, setAccounts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { accounts, loading, fetchAccounts, removeAccount } = useAccountsStore();
   const [disconnecting, setDisconnecting] = useState(null);
 
-  const loadAccounts = useCallback(async () => {
-    if (!user?.uid) return;
-    try {
-      const data = await getConnectedAccounts(user.uid);
-      setAccounts(data);
-    } catch (err) {
-      console.error("Failed to load accounts:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [user?.uid]);
-
   useEffect(() => {
-    loadAccounts();
-  }, [loadAccounts]);
+    if (user?.uid) {
+      fetchAccounts(user.uid);
+    }
+  }, [user?.uid, fetchAccounts]);
 
   const handleConnect = (platformId) => {
     if (!user?.uid) {
@@ -212,8 +198,7 @@ export default function AccountsPage() {
     if (!user?.uid) return;
     setDisconnecting(platformId);
     try {
-      await deleteConnectedAccount(user.uid, platformId);
-      setAccounts((prev) => prev.filter((a) => a.platform !== platformId));
+      await removeAccount(user.uid, platformId);
       toast.success(`Disconnected from ${PLATFORMS.find((p) => p.id === platformId)?.name}`);
     } catch (err) {
       console.error("Disconnect failed:", err);

@@ -1,25 +1,85 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { UserAuth } from "@/app/context/AuthContext";
+import { useAccountsStore } from "@/store/accountsStore";
 import Dashboard from "@/components/dashboard/dashboard";
 import LoadingScreen from "@/components/dashboard/Shared/LoadingScreen";
+import toast from "react-hot-toast";
 
 export default function DashboardPage() {
   const { user } = UserAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isClient, setIsClient] = useState(false);
+  const oauthHandled = useRef(false);
+  const { addAccount, fetchAccounts } = useAccountsStore();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Redirect to login if not authenticated
   useEffect(() => {
     if (isClient && user === null) {
       router.push("/login");
     }
   }, [user, router, isClient]);
+
+  // Load connected accounts when user is available
+  useEffect(() => {
+    if (user?.uid) {
+      fetchAccounts(user.uid);
+    }
+  }, [user?.uid, fetchAccounts]);
+
+  // Handle OAuth callback data from URL query params
+  useEffect(() => {
+    if (!user?.uid || oauthHandled.current) return;
+
+    const oauthSuccess = searchParams.get("oauth_success");
+    const accountDataEncoded = searchParams.get("account_data");
+    const oauthError = searchParams.get("oauth_error");
+    const platform = searchParams.get("platform");
+
+    if (oauthError) {
+      oauthHandled.current = true;
+      toast.error(
+        `Failed to connect ${platform || "account"}: ${oauthError}`
+      );
+      // Clean up URL
+      router.replace("/dashboard", { scroll: false });
+      return;
+    }
+
+    if (oauthSuccess === "true" && accountDataEncoded) {
+      oauthHandled.current = true;
+      try {
+        const accountData = JSON.parse(
+          Buffer.from(accountDataEncoded, "base64url").toString()
+        );
+
+        // Save to Firestore via the Zustand store
+        addAccount(user.uid, accountData)
+          .then(() => {
+            toast.success(
+              `Connected ${accountData.platform} (${accountData.handle})`
+            );
+          })
+          .catch((err) => {
+            console.error("Failed to save account:", err);
+            toast.error("Connected but failed to save. Please try again.");
+          });
+      } catch (err) {
+        console.error("Failed to parse OAuth data:", err);
+        toast.error("Something went wrong processing the account data.");
+      }
+
+      // Clean up URL
+      router.replace("/dashboard", { scroll: false });
+    }
+  }, [user?.uid, searchParams, addAccount, router]);
 
   // Show loading screen while auth state resolves
   if (!isClient || user === undefined) {
