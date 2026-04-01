@@ -9,12 +9,7 @@ export async function GET(request, { params }) {
   const state = searchParams.get("state");
   const error = searchParams.get("error");
 
-  // Sanitize base URL (remove trailing slash if present)
-  let baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.slice(0, -1);
-  }
-
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000").replace(/\/+$/, "");
   const dashboardUrl = `${baseUrl}/dashboard`;
 
   // Handle user denial
