@@ -4,15 +4,15 @@ import { AuthContextProvider } from "@/app/context/AuthContext";
 import StyledJsxRegistry from "@/components/landing-page-2/registry";
 
 export const metadata = {
-  metadataBase: new URL("https://www.draftfor.me"),
+  metadataBase: new URL("https://www.socialwing.app"),
 
   title: {
-    default: "LinkedIn Post Generator That Sounds Like You | draftfor.me",
-    template: "%s | draftfor.me",
+    default: "Post to all your social accounts from one dashboard | SocialWing",
+    template: "%s | SocialWing",
   },
 
   description:
-    "Stop posting content that sounds like AI. draftfor.me learns your voice from past posts — so every LinkedIn update is authentically you. Try it free →",
+    "Stop posting content that sounds like AI. SocialWing learns your voice from past posts — so every LinkedIn update is authentically you. Try it free →",
 
   keywords: [
     "LinkedIn post generator that sounds like me",
@@ -25,22 +25,23 @@ export const metadata = {
     "consistent LinkedIn presence without writing",
     "LinkedIn post generator for sales teams",
     "AI content that sounds human",
+    "SocialWing",
   ],
 
-  authors: [{ name: "draftfor.me" }],
-  creator: "draftfor.me",
-  publisher: "draftfor.me",
+  authors: [{ name: "SocialWing" }],
+  creator: "SocialWing",
+  publisher: "SocialWing",
 
   alternates: {
-    canonical: "https://www.draftfor.me",
+    canonical: "https://www.socialwing.app",
   },
 
   openGraph: {
-    title: "LinkedIn Post Generator That Sounds Like You | draftfor.me",
+    title: "Post to all your social accounts from one dashboard | SocialWing",
     description:
-      "draftfor.me reads your old posts, learns how you write, then drafts LinkedIn content in your voice — not a generic AI voice. Used by founders, executives, and sales teams.",
-    url: "https://www.draftfor.me",
-    siteName: "draftfor.me",
+      "SocialWing reads your old posts, learns how you write, then drafts LinkedIn content in your voice — not a generic AI voice. Used by founders, executives, and sales teams.",
+    url: "https://www.socialwing.app",
+    siteName: "SocialWing",
     locale: "en_US",
     type: "website",
     images: [
@@ -48,14 +49,14 @@ export const metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "draftfor.me — LinkedIn post generator that sounds like you wrote it",
+        alt: "SocialWing — LinkedIn post generator that sounds like you wrote it",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "LinkedIn Post Generator That Sounds Like You",
+    title: "Post to all your social accounts from one dashboard",
     description:
       "Stop posting content that sounds like AI. draftfor.me learns your voice from past posts — so every LinkedIn update is authentically you. Try it free →",
     creator: "@anmol_biz",
@@ -80,14 +81,14 @@ export default function RootLayout({ children }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "draftfor.me",
-    alternateName: "Draft For Me",
+    name: "SocialWing",
+    alternateName: "Social Wing",
     description:
       "AI LinkedIn post generator that analyzes your past posts to learn your writing style, vocabulary, and tone — then drafts content that sounds like you, not like AI.",
     applicationCategory: "BusinessApplication",
     applicationSubCategory: "Content Writing",
     operatingSystem: "Web Browser",
-    url: "https://www.draftfor.me",
+    url: "https://www.socialwing.app",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -114,13 +115,13 @@ export default function RootLayout({ children }) {
     },
     publisher: {
       "@type": "Organization",
-      name: "draftfor.me",
-      url: "https://www.draftfor.me",
+      name: "SocialWing",
+      url: "https://www.socialwing.app",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.draftfor.me/logo.png",
+        url: "https://www.socialwing.app/logo.png",
       },
-      sameAs: ["https://www.linkedin.com/company/draftforme"],
+      sameAs: ["https://www.linkedin.com/company/socialwing"],
     },
   };
 
@@ -131,26 +132,26 @@ export default function RootLayout({ children }) {
     mainEntity: [
       {
         "@type": "Question",
-        name: "How does draftfor.me learn my LinkedIn writing style?",
+        name: "How does SocialWing learn my LinkedIn writing style?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "draftfor.me analyzes your previous LinkedIn posts to identify your vocabulary, sentence rhythm, tone, humor, and writing quirks. It uses this data to generate new posts that sound like you wrote them — not a generic AI.",
+          text: "SocialWing analyzes your previous LinkedIn posts to identify your vocabulary, sentence rhythm, tone, humor, and writing quirks. It uses this data to generate new posts that sound like you wrote them — not a generic AI.",
         },
       },
       {
         "@type": "Question",
-        name: "Is draftfor.me different from ChatGPT for LinkedIn posts?",
+        name: "Is SocialWing different from ChatGPT for LinkedIn posts?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. ChatGPT generates generic content with no knowledge of how you write. draftfor.me specifically learns your personal writing style from your past posts, so the output sounds authentically like you rather than obviously AI-written.",
+          text: "Yes. ChatGPT generates generic content with no knowledge of how you write. SocialWing specifically learns your personal writing style from your past posts, so the output sounds authentically like you rather than obviously AI-written.",
         },
       },
       {
         "@type": "Question",
-        name: "Who is draftfor.me for?",
+        name: "Who is SocialWing for?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "draftfor.me is built for founders, executives, sales teams, and agencies who need to maintain a consistent daily LinkedIn presence without spending hours writing. It's especially useful for anyone whose personal brand matters but whose calendar doesn't have room for content creation.",
+          text: "SocialWing is built for founders, executives, sales teams, and agencies who need to maintain a consistent daily LinkedIn presence without spending hours writing. It's especially useful for anyone whose personal brand matters but whose calendar doesn't have room for content creation.",
         },
       },
       {

@@ -89,7 +89,7 @@ export const HowItWorksSection = () => {
       title: "It gets better the more you use it",
       body: (
         <>
-          Every edit or approval teaches draftfor.me your preferences. Over time
+          Every edit or approval teaches SocialWing your preferences. Over time
           it needs <strong>less and less intervention</strong> — some users post
           in under 2 minutes.
         </>

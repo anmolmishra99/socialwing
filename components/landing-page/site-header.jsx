@@ -6,10 +6,9 @@ export function SiteHeader() {
     <nav className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6">
       <a
         href="#top"
-        className="text-3xl tracking-tight text-foreground"
-        style={{ fontFamily: "'Instrument Serif', serif" }}
+        className="flex items-center"
       >
-        draftfor.me
+        <img src="/assets/images/logo.png" alt="SocialWing" className="h-10 w-auto" />
       </a>
 
       <div className="hidden items-center gap-8 md:flex">

@@ -57,7 +57,7 @@ export const TestimonialsSection = () => (
 
         <div className="testi reveal">
           <div className="stars">★★★★★</div>
-          <p className="testi-quote">"I've tried every AI writing tool. They all make me sound like a press release. draftfor.me is the only one that nails my dry humor. That's everything."</p>
+          <p className="testi-quote">"I've tried every AI writing tool. They all make me sound like a press release. SocialWing is the only one that nails my dry humor. That's everything."</p>
           <div className="testi-author">
             <div className="testi-avatar">SR</div>
             <div>
@@ -69,7 +69,7 @@ export const TestimonialsSection = () => (
 
         <div className="testi reveal">
           <div className="stars">★★★★★</div>
-          <p className="testi-quote">"I closed two enterprise deals last quarter directly from LinkedIn conversations that started on posts draftfor.me drafted. ROI? Insane."</p>
+          <p className="testi-quote">"I closed two enterprise deals last quarter directly from LinkedIn conversations that started on posts SocialWing drafted. ROI? Insane."</p>
           <div className="testi-author">
             <div className="testi-avatar">MV</div>
             <div>

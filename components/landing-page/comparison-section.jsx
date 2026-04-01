@@ -25,7 +25,7 @@ export function ComparisonSection() {
         <div className="text-center">
           <p className="text-sm font-medium tracking-[0.12em] text-[#a6a5ac] uppercase">The difference is obvious</p>
           <h2 className="mt-4 text-4xl font-normal text-white sm:text-5xl md:text-6xl" style={{ fontFamily: "'Instrument Serif', serif" }}>
-            Generic AI tools vs. draftfor.me
+            Generic AI tools vs. SocialWing
           </h2>
         </div>
 
@@ -47,9 +47,9 @@ export function ComparisonSection() {
           </div>
 
           <div className="liquid-glass rounded-3xl lg:rounded-l-none border-l-0 bg-blue-500/[0.03] p-8 md:p-10 ring-1 ring-blue-400/20">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">DRAFTFOR.ME</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">SOCIALWING</h3>
             <ul className="mt-10 space-y-6">
-              {comparisonLists.draftfor.map((item) => (
+              {comparisonLists.socialwing.map((item) => (
                 <li key={item} className="flex items-center gap-4 text-base text-white">
                   <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-blue-500/10">
                     <Check className="size-3.5 text-blue-400" />

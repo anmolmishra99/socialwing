@@ -23,7 +23,9 @@ export const FooterSection = () => (
         footer { flex-direction: column; gap: 16px; }
       }
     `}</style>
-    <a href="#" className="footer-logo">draft<span>for</span>.me</a>
+    <a href="#" className="flex items-center">
+      <img src="/assets/images/logo.png" alt="SocialWing" style={{ height: "32px", width: "auto" }} />
+    </a>
     <div className="footer-links">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
@@ -31,6 +33,6 @@ export const FooterSection = () => (
       <a href="#">Contact</a>
       <a href="#">Twitter / X</a>
     </div>
-    <p style={{fontSize: '0.78rem'}}>© 2025 draftfor.me · Made with obsession over voice.</p>
+    <p style={{fontSize: '0.78rem'}}>© 2025 SocialWing · Made with obsession over voice.</p>
   </footer>
 );

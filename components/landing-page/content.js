@@ -34,7 +34,7 @@ export const comparisonLists = {
     `"I'm excited to share…" every time`,
     "You still spend 30+ min editing",
   ],
-  draftfor: [
+  socialwing: [
     "Trained on YOUR past posts",
     "Learns your vocabulary, rhythm, humor",
     "Style analysis in 60 seconds",
@@ -68,7 +68,7 @@ export const howItWorksSteps = [
     step: "04",
     eyebrow: "Compounding returns",
     title: "It gets better the more you use it",
-    body: "Every post you edit or approve teaches draftfor.me your preferences. Over time, it needs less and less intervention — some users post in under 2 minutes.",
+    body: "Every post you edit or approve teaches SocialWing your preferences. Over time, it needs less and less intervention — some users post in under 2 minutes.",
   },
 ];
 
@@ -116,13 +116,13 @@ export const testimonials = [
   },
   {
     quote:
-      `"I've tried every AI writing tool. They all make me sound like a press release. draftfor.me is the only one that nails my dry humor. That's everything."`,
+      `"I've tried every AI writing tool. They all make me sound like a press release. SocialWing is the only one that nails my dry humor. That's everything."`,
     name: "Sonal R.",
     role: "VP Sales, B2B SaaS · 14.1K followers",
   },
   {
     quote:
-      '"I closed two enterprise deals last quarter directly from LinkedIn conversations that started on posts draftfor.me drafted. ROI? Insane."',
+      '"I closed two enterprise deals last quarter directly from LinkedIn conversations that started on posts SocialWing drafted. ROI? Insane."',
     name: "Mihir V.",
     role: "CEO, MarTech agency · 22K followers",
   },
@@ -185,17 +185,17 @@ export const faqItems = [
   {
     question: "Will my followers know it's AI-generated?",
     answer:
-      "Not if the post sounds like you. draftfor.me trains on your real LinkedIn history, then runs generation through the Humanized skill so the final draft keeps your vocabulary, pacing, humor, and quirks intact. Most users publish with only tiny edits.",
+      "Not if the post sounds like you. SocialWing trains on your real LinkedIn history, then runs generation through the Humanized skill so the final draft keeps your vocabulary, pacing, humor, and quirks intact. Most users publish with only tiny edits.",
   },
   {
     question: "What if I barely have any posts? Can it still learn my style?",
     answer:
-      "Yes. More posts help, but even a smaller archive gives us enough signal to learn your sentence length, hook patterns, and tone. If your history is thin, draftfor.me starts with a lighter voice profile and sharpens it with every approved post.",
+      "Yes. More posts help, but even a smaller archive gives us enough signal to learn your sentence length, hook patterns, and tone. If your history is thin, SocialWing starts with a lighter voice profile and sharpens it with every approved post.",
   },
   {
     question: "How is this different from just using ChatGPT with a custom prompt?",
     answer:
-      "A prompt describes your voice. draftfor.me studies the source material. That means it learns the way you actually write instead of relying on vague instructions like 'make it sound casual and punchy.'",
+      "A prompt describes your voice. SocialWing studies the source material. That means it learns the way you actually write instead of relying on vague instructions like 'make it sound casual and punchy.'",
   },
   {
     question: "Is my LinkedIn data safe?",

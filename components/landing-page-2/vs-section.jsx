@@ -445,7 +445,7 @@ export const VsSection = () => {
             <span className="vs-eyebrow-line" />
           </p>
           <h2 className="vs-title">
-            Generic AI tools vs. <em>draftfor.me</em>
+            Generic AI tools vs. <em>SocialWing</em>
           </h2>
         </div>
 
@@ -477,7 +477,7 @@ export const VsSection = () => {
               <div className="col-icon" style={{ fontSize: "0.9rem" }}>
                 ✦
               </div>
-              <span className="col-title">draftfor.me</span>
+              <span className="col-title">SocialWing</span>
             </div>
             {usItems.map((text, i) => (
               <div className="vs-item" key={i}>
@@ -503,7 +503,7 @@ export const VsSection = () => {
             >
               <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm5 12H7v-.5c0-2.2 3.6-3.5 5-3.5s5 1.3 5 3.5V18z" />
             </svg>
-            Try draftfor.me free →
+            Try SocialWing free →
           </a>
         </div>
       </div>

@@ -37,7 +37,7 @@ export function HeroSection() {
             </h1>
 
             <p className="animate-fade-rise-delay mt-8 max-w-3xl text-base leading-relaxed text-[#a6a5ac] sm:text-lg">
-              Not like AI. Not like everyone else. Like you. draftfor.me
+              Not like AI. Not like everyone else. Like you. SocialWing
               learns your rhythm and voice from past posts, then drafts
               LinkedIn content that feels unmistakably yours.
             </p>
