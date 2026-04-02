@@ -39,10 +39,11 @@ function DashboardContent() {
 
     if (oauthError) {
       oauthHandled.current = true;
-      toast.error(
-        `Failed to connect ${platform || "account"}: ${oauthError}`
-      );
-      // Clean up URL
+      let message = `Failed to connect ${platform || "account"}: ${oauthError}`;
+      if (oauthError === "unauthorized_scope_error") {
+        message = `LinkedIn app missing required products. In the LinkedIn Developer Portal, go to your app's Products tab and enable "Sign In with LinkedIn using OpenID Connect" and "Share on LinkedIn".`;
+      }
+      toast.error(message, { duration: 8000 });
       router.replace("/dashboard", { scroll: false });
       return;
     }

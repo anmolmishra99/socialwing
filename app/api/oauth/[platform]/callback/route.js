@@ -12,8 +12,9 @@ export async function GET(request, { params }) {
   const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000").replace(/\/+$/, "");
   const dashboardUrl = `${baseUrl}/dashboard/accounts`;
 
-  // Handle user denial
   if (error) {
+    const errorDesc = searchParams.get("error_description") || "";
+    console.error(`[OAuth Error] ${platform}:`, error, errorDesc);
     return NextResponse.redirect(
       `${dashboardUrl}?oauth_error=${encodeURIComponent(error)}&platform=${platform}`
     );
