@@ -75,7 +75,8 @@ export async function GET(request, { params }) {
     const expiresIn = tokenData.expires_in || 0;
 
     // Fetch user profile from the platform
-    const profile = await helpers.getUserProfile(accessToken);
+    // Pass full tokenData so platforms can use id_token if available
+    const profile = await helpers.getUserProfile(accessToken, tokenData);
 
     // Calculate expiry timestamp
     const expiresAt = expiresIn > 0 ? Date.now() + expiresIn * 1000 : 0;
