@@ -172,11 +172,6 @@ export default function AccountsPage() {
   const { accounts, loading, fetchAccounts, removeAccount } = useAccountsStore();
   const [disconnecting, setDisconnecting] = useState(null);
 
-  useEffect(() => {
-    if (user?.uid) {
-      fetchAccounts(user.uid);
-    }
-  }, [user?.uid, fetchAccounts]);
 
   const handleConnect = (platformId) => {
     if (!user?.uid) {
@@ -375,8 +370,14 @@ export default function AccountsPage() {
                           fontSize: "0.7rem",
                           fontWeight: 700,
                           border: "1.5px solid #000",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
                         }}
                       >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                          <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                         EXPIRED
                       </span>
                     )}

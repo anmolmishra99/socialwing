@@ -89,6 +89,7 @@ export async function GET(request, { params }) {
       accessToken,
       refreshToken,
       expiresAt,
+      platformUserId: profile.id,
     };
 
     const encodedData = Buffer.from(JSON.stringify(accountData)).toString("base64url");

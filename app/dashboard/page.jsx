@@ -27,12 +27,6 @@ function DashboardContent() {
     }
   }, [user, router, isClient]);
 
-  // Load connected accounts when user is available
-  useEffect(() => {
-    if (user?.uid) {
-      fetchAccounts(user.uid);
-    }
-  }, [user?.uid, fetchAccounts]);
 
   // Handle OAuth callback data from URL query params
   useEffect(() => {

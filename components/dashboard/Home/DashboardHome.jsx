@@ -60,9 +60,18 @@ export default function DashboardHome({ user, onNavigate }) {
     {
       label: "Connected",
       value: String(connectedCount),
-      delta: connectedCount > 0 ? `${connectedCount} account${connectedCount > 1 ? "s" : ""} active` : "Add account →",
-      color: "#06D6A0",
-      bg: "#E6FBF5",
+      delta:
+        accounts.some((a) => a.expiresAt && Date.now() > a.expiresAt)
+          ? "⚠️ Attention required"
+          : connectedCount > 0
+          ? `${connectedCount} account${connectedCount > 1 ? "s" : ""} active`
+          : "Add account →",
+      color: accounts.some((a) => a.expiresAt && Date.now() > a.expiresAt)
+        ? "#FF4D6D"
+        : "#06D6A0",
+      bg: accounts.some((a) => a.expiresAt && Date.now() > a.expiresAt)
+        ? "#FFF0F3"
+        : "#E6FBF5",
       icon: (
         <svg
           width="22"
@@ -494,10 +503,18 @@ export default function DashboardHome({ user, onNavigate }) {
                     width: "8px",
                     height: "8px",
                     borderRadius: "50%",
-                    background: "#06D6A0",
+                    background:
+                      account.expiresAt && Date.now() > account.expiresAt
+                        ? "#FF4D6D"
+                        : "#06D6A0",
                     border: "1px solid #000",
                     flexShrink: 0,
                   }}
+                  title={
+                    account.expiresAt && Date.now() > account.expiresAt
+                      ? "Token Expired"
+                      : "Online"
+                  }
                 />
               </div>
             ))}

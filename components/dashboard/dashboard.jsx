@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { UserAuth } from "@/app/context/AuthContext";
+import { useAccountsStore } from "@/store/accountsStore";
 import DashboardHome from "./Home/DashboardHome";
 import CreatePost from "./CreatePost/CreatePost";
 import CalendarView from "./Calendar/CalendarView";
@@ -199,12 +201,46 @@ function NavButton({ item, isActive, onClick }) {
 
 export default function Dashboard({ initialTab = "Dashboard" }) {
   const { user, logOut } = UserAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { fetchAccounts } = useAccountsStore();
   const [activeTab, setActiveTab] = useState(initialTab);
+
+  // Centralized Account Fetching
+  useEffect(() => {
+    if (user?.uid) {
+      fetchAccounts(user.uid);
+    }
+  }, [user?.uid, fetchAccounts]);
+
+  // Sync tab with URL on mount or URL change
+  useEffect(() => {
+    if (pathname.includes("/compose")) {
+      setActiveTab("Create Post");
+    } else if (pathname.includes("/accounts")) {
+      setActiveTab("Accounts");
+    } else if (pathname === "/dashboard") {
+      setActiveTab("Dashboard");
+    }
+  }, [pathname]);
+
+  const handleTabChange = (tabName) => {
+    setActiveTab(tabName);
+    
+    // Update URL to match tab
+    if (tabName === "Create Post") {
+      router.push("/dashboard/compose");
+    } else if (tabName === "Accounts") {
+      router.push("/dashboard/accounts");
+    } else if (tabName === "Dashboard") {
+      router.push("/dashboard");
+    }
+  };
 
   const renderPage = () => {
     switch (activeTab) {
       case "Dashboard":
-        return <DashboardHome user={user} onNavigate={setActiveTab} />;
+        return <DashboardHome user={user} onNavigate={handleTabChange} />;
       case "Create Post":
         return <CreatePost />;
       case "Calendar":
@@ -308,7 +344,7 @@ export default function Dashboard({ initialTab = "Dashboard" }) {
               key={item.name}
               item={item}
               isActive={activeTab === item.name}
-              onClick={() => setActiveTab(item.name)}
+              onClick={() => handleTabChange(item.name)}
             />
           ))}
         </nav>
@@ -320,7 +356,7 @@ export default function Dashboard({ initialTab = "Dashboard" }) {
               key={item.name}
               item={item}
               isActive={activeTab === item.name}
-              onClick={() => setActiveTab(item.name)}
+              onClick={() => handleTabChange(item.name)}
             />
           ))}
         </div>
@@ -458,7 +494,7 @@ export default function Dashboard({ initialTab = "Dashboard" }) {
           </h1>
           {activeTab !== "Create Post" && (
             <button
-              onClick={() => setActiveTab("Create Post")}
+              onClick={() => handleTabChange("Create Post")}
               style={{
                 background: "#5945FE",
                 color: "#fff",

@@ -1,36 +1,100 @@
 "use client";
 
 import { useState } from "react";
-
-const PLATFORMS = [
-  { id: "instagram", name: "Instagram", color: "#E4405F" },
-  { id: "twitter", name: "X / Twitter", color: "#000000" },
-  { id: "linkedin", name: "LinkedIn", color: "#0A66C2" },
-  { id: "facebook", name: "Facebook", color: "#1877F2" },
-  { id: "youtube", name: "YouTube", color: "#FF0000" },
-  { id: "tiktok", name: "TikTok", color: "#000000" },
-  { id: "pinterest", name: "Pinterest", color: "#E60023" },
-  { id: "discord", name: "Discord", color: "#5865F2" },
-  { id: "slack", name: "Slack", color: "#4A154B" },
-];
+import { UserAuth } from "@/app/context/AuthContext";
+import PlatformSelector from "@/components/compose/PlatformSelector";
+import CaptionEditor from "@/components/compose/CaptionEditor";
+import AIAssistant from "@/components/compose/AIAssistant";
+import MediaUploader from "@/components/compose/MediaUploader";
+import SchedulePicker from "@/components/compose/SchedulePicker";
+import PostPreview from "@/components/compose/PostPreview";
+import toast from "react-hot-toast";
 
 export default function CreatePost() {
-  const [postText, setPostText] = useState("");
+  const { user } = UserAuth();
+  
+  // State
+  const [content, setContent] = useState("");
+  const [media, setMedia] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [scheduleType, setScheduleType] = useState("now");
   const [scheduleDate, setScheduleDate] = useState("");
   const [scheduleTime, setScheduleTime] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Handlers
   const togglePlatform = (id) => {
     setSelectedPlatforms((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
     );
   };
 
-  const charCount = postText.length;
+  const handleAddMedia = (asset) => {
+    setMedia((prev) => [...prev, asset]);
+  };
+
+  const handleRemoveMedia = (fileId) => {
+    setMedia((prev) => prev.filter((m) => m.fileId !== fileId));
+  };
+
+  const handleSubmit = async () => {
+    if (!content && media.length === 0) {
+      toast.error("Please add some content or media first.");
+      return;
+    }
+    if (selectedPlatforms.length === 0) {
+      toast.error("Please select at least one platform.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    let scheduledAt = null;
+    if (scheduleType === "schedule" && scheduleDate && scheduleTime) {
+      scheduledAt = new Date(`${scheduleDate}T${scheduleTime}`).toISOString();
+    }
+
+    const postData = {
+      userId: user.uid,
+      content,
+      media,
+      platforms: selectedPlatforms,
+      scheduledAt,
+    };
+
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        toast.success(
+          scheduleType === "now" 
+            ? "Post published successfully! 🚀" 
+            : "Post scheduled successfully! 📅"
+        );
+        // Reset form
+        setContent("");
+        setMedia([]);
+        setSelectedPlatforms([]);
+        setScheduleType("now");
+      } else {
+        throw new Error(data.error || "Failed to create post");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div style={{ maxWidth: "900px", position: "relative" }}>
+    <div style={{ maxWidth: "1100px", position: "relative" }}>
+      {/* Background watermark */}
       <div
         style={{
           position: "absolute",
@@ -48,409 +112,132 @@ export default function CreatePost() {
         COMPOSE
       </div>
 
-      <h2
-        style={{
-          fontWeight: 800,
-          fontSize: "1.8rem",
-          color: "#000",
-          letterSpacing: "-0.03em",
-          marginBottom: "8px",
-        }}
-      >
-        Create New Post
-      </h2>
-      <p
-        style={{
-          color: "#666",
-          fontSize: "0.95rem",
-          marginBottom: "32px",
-          fontWeight: 500,
-        }}
-      >
-        Write once, publish everywhere.
-      </p>
+      <div style={{ marginBottom: "40px" }}>
+        <h2
+          style={{
+            fontWeight: 900,
+            fontSize: "2.4rem",
+            color: "#000",
+            letterSpacing: "-0.04em",
+            marginBottom: "8px",
+            lineHeight: 1,
+          }}
+        >
+          Compose Post
+        </h2>
+        <p style={{ color: "#000", fontSize: "1.1rem", fontWeight: 700, opacity: 0.8 }}>
+          Draft across platforms with AI assistance and smart scheduling.
+        </p>
+      </div>
 
-      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-        {/* Left - Editor */}
-        <div style={{ flex: "1 1 480px", minWidth: 0 }}>
-          {/* Text area */}
-          <div
-            style={{
-              background: "#fff",
-              border: "2px solid #000",
-              borderRadius: "8px",
-              boxShadow: "3px 3px 0 #000",
-              padding: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <textarea
-              value={postText}
-              onChange={(e) => setPostText(e.target.value)}
-              placeholder="What's on your mind? Write your post here..."
-              style={{
-                width: "100%",
-                minHeight: "180px",
-                border: "none",
-                outline: "none",
-                fontSize: "1rem",
-                fontFamily: "'Inter', sans-serif",
-                resize: "vertical",
-                lineHeight: 1.6,
-                color: "#000",
-                background: "transparent",
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                borderTop: "1px solid #eee",
-                paddingTop: "12px",
-                marginTop: "8px",
-              }}
-            >
-              <div style={{ display: "flex", gap: "8px" }}>
-                <button
-                  style={{
-                    background: "#f5f5f5",
-                    border: "1.5px solid #ddd",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    cursor: "pointer",
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    color: "#555",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <polyline points="21 15 16 10 5 21" />
-                  </svg>
-                  Media
-                </button>
-                <button
-                  style={{
-                    background: "#f0eeff",
-                    border: "1.5px solid #d4cfff",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    cursor: "pointer",
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    color: "#5945FE",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="#5945FE"
-                    strokeWidth="2"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  Generate with AI
-                </button>
-              </div>
-              <span
-                style={{
-                  fontSize: "0.8rem",
-                  fontWeight: 600,
-                  color: charCount > 280 ? "#FF4D6D" : "#aaa",
-                }}
-              >
-                {charCount} characters
-              </span>
-            </div>
+      <div style={{ display: "flex", gap: "32px", flexWrap: "wrap", alignItems: "flex-start" }}>
+        {/* Left Column - Editor */}
+        <div style={{ flex: "1 1 600px", minWidth: 0 }}>
+          
+          <div style={{ marginBottom: "32px" }}>
+             <p style={{ fontWeight: 900, fontSize: "0.9rem", color: "#000", marginBottom: "18px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                1. Select Target Accounts
+             </p>
+             <PlatformSelector 
+                selectedPlatforms={selectedPlatforms} 
+                onToggle={togglePlatform} 
+             />
           </div>
 
-          {/* Platform selector */}
-          <div
-            style={{
-              background: "#fff",
-              border: "2px solid #000",
-              borderRadius: "8px",
-              boxShadow: "3px 3px 0 #000",
-              padding: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: 700,
-                fontSize: "0.82rem",
-                color: "#888",
-                marginBottom: "14px",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-              }}
-            >
-              Publish to
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-              {PLATFORMS.map((p) => {
-                const selected = selectedPlatforms.includes(p.id);
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => togglePlatform(p.id)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      padding: "8px 14px",
-                      background: selected ? p.color : "#fff",
-                      color: selected ? "#fff" : "#333",
-                      border: "2px solid #000",
-                      borderRadius: "6px",
-                      boxShadow: selected ? "2px 2px 0 #000" : "none",
-                      cursor: "pointer",
-                      fontWeight: 600,
-                      fontSize: "0.85rem",
-                      transition: "all 0.1s",
-                    }}
-                  >
-                    {p.name}
-                  </button>
-                );
-              })}
-            </div>
+          <div style={{ marginBottom: "32px" }}>
+             <p style={{ fontWeight: 900, fontSize: "0.9rem", color: "#000", marginBottom: "18px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                2. Enhance with AI
+             </p>
+             <AIAssistant 
+                selectedPlatforms={selectedPlatforms} 
+                onGenerate={(txt) => setContent(txt)} 
+              />
           </div>
 
-          {/* Schedule */}
-          <div
-            style={{
-              background: "#fff",
-              border: "2px solid #000",
-              borderRadius: "8px",
-              boxShadow: "3px 3px 0 #000",
-              padding: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: 700,
-                fontSize: "0.82rem",
-                color: "#888",
-                marginBottom: "14px",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-              }}
-            >
-              Schedule
-            </p>
-            <div style={{ display: "flex", gap: "10px", marginBottom: "16px" }}>
-              {[
-                { value: "now", label: "Post Now" },
-                { value: "schedule", label: "Schedule" },
-              ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => setScheduleType(opt.value)}
-                  style={{
-                    padding: "8px 20px",
-                    background: scheduleType === opt.value ? "#5945FE" : "#fff",
-                    color: scheduleType === opt.value ? "#fff" : "#333",
-                    border: "2px solid #000",
-                    borderRadius: "6px",
-                    boxShadow:
-                      scheduleType === opt.value ? "2px 2px 0 #000" : "none",
-                    cursor: "pointer",
-                    fontWeight: 600,
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-            {scheduleType === "schedule" && (
-              <div style={{ display: "flex", gap: "10px" }}>
-                <input
-                  type="date"
-                  value={scheduleDate}
-                  onChange={(e) => setScheduleDate(e.target.value)}
-                  style={{
-                    padding: "8px 14px",
-                    border: "2px solid #000",
-                    borderRadius: "6px",
-                    fontSize: "0.9rem",
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 600,
-                  }}
-                />
-                <input
-                  type="time"
-                  value={scheduleTime}
-                  onChange={(e) => setScheduleTime(e.target.value)}
-                  style={{
-                    padding: "8px 14px",
-                    border: "2px solid #000",
-                    borderRadius: "6px",
-                    fontSize: "0.9rem",
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 600,
-                  }}
-                />
-              </div>
-            )}
+          <div style={{ marginBottom: "32px" }}>
+             <p style={{ fontWeight: 900, fontSize: "0.9rem", color: "#000", marginBottom: "18px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                3. Finalize Content
+             </p>
+             <CaptionEditor 
+                value={content} 
+                onChange={setContent} 
+                selectedPlatforms={selectedPlatforms} 
+              />
+
+              <MediaUploader 
+                userId={user?.uid} 
+                media={media} 
+                onAdd={handleAddMedia} 
+                onRemove={handleRemoveMedia} 
+              />
           </div>
 
-          {/* Submit */}
+          <div style={{ marginBottom: "32px" }}>
+             <p style={{ fontWeight: 900, fontSize: "0.9rem", color: "#000", marginBottom: "18px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                4. Timing
+             </p>
+             <SchedulePicker 
+                scheduleType={scheduleType}
+                onTypeChange={setScheduleType}
+                date={scheduleDate}
+                time={scheduleTime}
+                onDateChange={setScheduleDate}
+                onTimeChange={setScheduleTime}
+              />
+          </div>
+
           <button
-            disabled={!postText.trim() || selectedPlatforms.length === 0}
+            onClick={handleSubmit}
+            disabled={isSubmitting || (!content && media.length === 0) || selectedPlatforms.length === 0}
             style={{
               width: "100%",
-              padding: "16px",
-              background:
-                postText.trim() && selectedPlatforms.length > 0
-                  ? "#5945FE"
-                  : "#ccc",
-              color: "#fff",
-              border: "2px solid #000",
-              borderRadius: "8px",
-              boxShadow:
-                postText.trim() && selectedPlatforms.length > 0
-                  ? "4px 4px 0 #000"
-                  : "none",
-              cursor:
-                postText.trim() && selectedPlatforms.length > 0
-                  ? "pointer"
-                  : "not-allowed",
-              fontWeight: 700,
-              fontSize: "1rem",
-              transition: "transform 0.1s, box-shadow 0.1s",
-            }}
-            onMouseEnter={(e) => {
-              if (postText.trim() && selectedPlatforms.length > 0) {
-                e.currentTarget.style.transform = "translate(2px, 2px)";
-                e.currentTarget.style.boxShadow = "2px 2px 0 #000";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (postText.trim() && selectedPlatforms.length > 0) {
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = "4px 4px 0 #000";
-              }
+              padding: "20px",
+              background: (isSubmitting || (!content && media.length === 0) || selectedPlatforms.length === 0) ? "#eee" : "#000",
+              color: (isSubmitting || (!content && media.length === 0) || selectedPlatforms.length === 0) ? "#999" : "#fff",
+              border: "4px solid #000",
+              borderRadius: "14px",
+              boxShadow: (isSubmitting || (!content && media.length === 0) || selectedPlatforms.length === 0) ? "none" : "6px 6px 0 #5945FE",
+              cursor: (isSubmitting || (!content && media.length === 0) || selectedPlatforms.length === 0) ? "not-allowed" : "pointer",
+              fontWeight: 900,
+              fontSize: "1.2rem",
+              transition: "all 0.1s",
+              position: "relative",
+              overflow: "hidden",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em"
             }}
           >
-            {scheduleType === "now"
-              ? `Publish to ${selectedPlatforms.length} platform${selectedPlatforms.length !== 1 ? "s" : ""}`
-              : `Schedule for ${selectedPlatforms.length} platform${selectedPlatforms.length !== 1 ? "s" : ""}`}
+            {isSubmitting ? "PROCESSING..." : scheduleType === "now" ? "PUBLISH NOW" : "SCHEDULE DEPLOYMENT"}
           </button>
         </div>
 
-        {/* Right - Preview */}
-        <div style={{ flex: "0 0 280px" }}>
-          <div
-            style={{
-              background: "#fff",
-              border: "2px solid #000",
-              borderRadius: "8px",
-              boxShadow: "3px 3px 0 #000",
-              padding: "20px",
-              position: "sticky",
-              top: "20px",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: 700,
-                fontSize: "0.82rem",
-                color: "#888",
-                marginBottom: "14px",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-              }}
-            >
-              Preview
-            </p>
-            <div
-              style={{
-                background: "#f9f9f9",
-                border: "1.5px solid #eee",
-                borderRadius: "6px",
-                padding: "16px",
-                minHeight: "120px",
-              }}
-            >
-              {postText ? (
-                <p
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "#333",
-                    lineHeight: 1.5,
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {postText}
-                </p>
-              ) : (
-                <p
-                  style={{
-                    fontSize: "0.85rem",
-                    color: "#bbb",
-                    fontStyle: "italic",
-                  }}
-                >
-                  Your post preview will appear here...
-                </p>
-              )}
-            </div>
-            {selectedPlatforms.length > 0 && (
-              <div style={{ marginTop: "14px" }}>
-                <p
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "#888",
-                    marginBottom: "8px",
-                  }}
-                >
-                  Publishing to::
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                  {selectedPlatforms.map((id) => {
-                    const p = PLATFORMS.find((pl) => pl.id === id);
-                    return (
-                      <span
-                        key={id}
-                        style={{
-                          padding: "3px 8px",
-                          background: p.color,
-                          color: "#fff",
-                          borderRadius: "4px",
-                          fontSize: "0.7rem",
-                          fontWeight: 700,
-                        }}
-                      >
-                        {p.name}
-                      </span>
-                    );
-                  })}
-                </div>
+        {/* Right Column - Preview (Sticky) */}
+        <div style={{ flex: "0 0 360px", position: "sticky", top: "20px" }}>
+          <p style={{ fontWeight: 900, fontSize: "0.9rem", color: "#000", marginBottom: "18px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            Deployment Preview
+          </p>
+          <PostPreview 
+            content={content} 
+            media={media} 
+            selectedPlatforms={selectedPlatforms} 
+            user={user} 
+          />
+          
+          {selectedPlatforms.length > 0 && (
+            <div style={{ marginTop: "24px", padding: "20px", background: "#fff", border: "3px solid #000", borderRadius: "12px", boxShadow: "4px 4px 0 #000" }}>
+              <p style={{ margin: "0 0 12px 0", fontSize: "0.8rem", fontWeight: 900, color: "#000", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Targeting ({selectedPlatforms.length})
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                 {selectedPlatforms.map(p => (
+                   <div key={p} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#06D6A0", border: "1.5px solid #000" }} />
+                      <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#000", textTransform: "capitalize" }}>{p}</span>
+                   </div>
+                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
